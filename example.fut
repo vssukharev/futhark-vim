@@ -5,7 +5,7 @@ def concat [n][m] (xs: [n]i32) (ys: [m]i32) =
 def dotprod [n] (xs: [n]i32) (ys: [n]i32): i32 =
   reduce (+) 0 (map2 (*) xs ys)
 
-def indices_of_nonzero (xs: []i32): []i64 =
+def indices_of_nonzero (xs: []i32): []scdcd =
   let xs_and_is = zip xs (indices xs)
   
   let xs_and_is' = filter (\(x,_) -> x != 0) xs_and_is
@@ -27,7 +27,8 @@ def dup [n] (xs: [n]i32): []i32 =
 
 def indices_i32 [n] (_: [n]i32): [n]i64 = 0..<n
 
-type intvec [n] = [n]i32
+type~ intvec [n] = [n]i32
 def x: intvec [3] = [1,2,3]
 
+type complex = {re: f64, im: f64}
 

@@ -16,30 +16,23 @@ syn keyword Conditional if then else
 syn keyword Repeat      loop for while do
 syn keyword Keyword     unsafe match case
 syn keyword Statement   with entry in local type val
-syn keyword Statement   def let entry nextgroup=FutId skipwhite skipempty
-syn keyword Statement   type nextgroup=FutType skipwhite skipempty
+syn keyword Statement   def entry nextgroup=FutId skipwhite skipempty
+syn keyword Statement   let
+syn keyword Statement   type[~] nextgroup=FutType skipwhite skipempty
 syn keyword PreProc     module open import nextgroup=FutId skipwhite skipempty
-
-" Common functions
-" syn keyword Function main concat indices stream_map stream_map_per
-" syn keyword Function reduce reduce_comm scan filter partition
-" syn keyword Function stream_red stream_red_per stream_seq iota
-" syn keyword Function replicate scatter drop
-" syn keyword Function rotate split flatten unflatten
-" syn keyword Function curry uncurry
-" syn keyword Function id const
-" syn match Function "map[0-9]*" 
-" syn match Function "zip[0-9]*" 
-" syn match Function "unzip[0-9]*" 
+syn keyword Delimiter   _
 
 " Common types
 syn keyword Type i8 i16 i32 i64 u8 u16 u32 u64 int real bool char f16 f32 f64
 
 " Delimiters
-syn match Delimiter   '[:()[\],\\.]'
+syn match Delimiter   '[:()[\],\\.{}]'
 
 " Operators
-syn match Operator  '[\-+*/<>%!&|^={..}]'
+syn match Operator  '[\-+*/<>%!&|^=]'
+syn match Operator  '\V..<'
+syn match Operator  '\V...'
+syn match Operator  '\V..'
 
 " Context matches
 syn match Delimiter    ':'    nextgroup=FutType skipwhite skipempty
