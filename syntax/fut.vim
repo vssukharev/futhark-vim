@@ -1,63 +1,51 @@
-syntax case match
 
-syn match Number "\v<([+-]?(0x[0-9a-fA-F]+|[0-9]+)([ui](8|16|32|64))?)>"
+" Literals
+syn match   Comment "--.*$"
+syn match   Number "\v<([+-]?(0x[0-9a-fA-F]+|[0-9]+)([ui](8|16|32|64))?)>" 
+syn match   Float "\v(([0-9]+\.[0-9]+|[0-9]+f(32|64))(f(32|64))?)"
+syn match   Float "\v([eE][\+\-]?[0-9]+)"
+syn region  String start=/"/ skip=/\\"/ end=/"/ keepend excludenl
+syn keyword Boolean true false
 
-syn match float "\v(([0-9]+\.[0-9]+|[0-9]+f(32|64))(f(32|64))?)"
-syn match float "\v([eE][\+\-]?[0-9]+)"
+" Identifiers
+syn match   FutId  "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
+syn match   FutType "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
 
-syn keyword conditional if then else
-syn keyword Statement loop with entry for while do in local type val
-syn keyword keyword unsafe
-syn keyword FutIdDecl def let entry nextgroup=FutFunc skipwhite skipempty
-syn keyword PreProc module open import nextgroup=FutFunc skipwhite skipempty
-syn keyword FutharkCase match case
+" Keywords
+syn keyword Conditional if then else
+syn keyword Repeat      loop for while do
+syn keyword Keyword     unsafe match case
+syn keyword Statement   with entry in local type val
+syn keyword Statement   def let entry nextgroup=FutId skipwhite skipempty
+syn keyword Statement   type nextgroup=FutType skipwhite skipempty
+syn keyword PreProc     module open import nextgroup=FutId skipwhite skipempty
 
-syn keyword FutTypeDecl type nextgroup=FutType skipwhite skipempty
-syn match FutTypeSpec ':' nextgroup=FutType skipwhite skipempty
+" Common functions
+" syn keyword Function main concat indices stream_map stream_map_per
+" syn keyword Function reduce reduce_comm scan filter partition
+" syn keyword Function stream_red stream_red_per stream_seq iota
+" syn keyword Function replicate scatter drop
+" syn keyword Function rotate split flatten unflatten
+" syn keyword Function curry uncurry
+" syn keyword Function id const
+" syn match Function "map[0-9]*" 
+" syn match Function "zip[0-9]*" 
+" syn match Function "unzip[0-9]*" 
 
-syn match function "map[0-9]*" 
-syn match function "zip[0-9]*" 
-syn match function "unzip[0-9]*" 
-syn keyword function main concat stream_map stream_map_per
-syn keyword function reduce reduce_comm scan filter partition
-syn keyword function stream_red stream_red_per stream_seq iota
-syn keyword function replicate scatter drop
-syn keyword function rotate split flatten unflatten
-syn keyword function curry uncurry
-syn keyword function id const
+" Common types
+syn keyword Type i8 i16 i32 i64 u8 u16 u32 u64 int real bool char f16 f32 f64
 
-syn keyword boolean true false
+" Delimiters
+syn match Delimiter   '[:()[\],\\.]'
 
-syn match FutFunc "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
-syn match FutType "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
+" Operators
+syn match Operator  '[\-+*/<>%!&|^={..}]'
 
-syn keyword type i8 i16 i32 i64 u8 u16 u32 u64 int real bool char f16 f32 f64
+" Context matches
+syn match Delimiter    ':'    nextgroup=FutType skipwhite skipempty
 
-" syn keyword typedef type
+" Links
+hi def link FutId      Function
+hi def link FutType    Type
 
 
-syn match constant /'.'/
-
-syn match FutAssignment "\v\="
-syn match FutharkOperator  "\(+\|-\|*\|/\|>\|<\|%\|!\|&\||\|\^\)"
-syn match FutharkOperator  "\(++\|==\|!=\|>->\|<-<\||>\|<|\)" containedin=FutharkLambdaOperator
-
-" Literally the same, just with parenthesis
-syn match FutharkLambdaOperator "(\ *\(++\|==\|!=\|>->\|<-<\||>\|<|\)\ *)"
-syn match FutharkLambdaOperator "(\ *\(+\|-\|*\|/\|>\|<\|%\|!\|&\||\|^\)\ *)"
-syn match FutharkLambdaOperator "(\ *\(\.[1-9][0-9]*\)\ *)"
-syn match FutharkLambdaOperator /).[1-9][0-9]*/ms=s+1
-
-syn region string start=/"/ skip=/\\"/ end=/"/ keepend excludenl
-
-syn match comment "--.*$"
-
-hi def link FutFunc Function
-hi def link FutType Type
-
-hi def link FutIdDecl Statement
-hi def link FutTypeDecl Statement
-hi def link number constant
-hi def link FutharkOperator operator
-hi def link FutharkLambdaOperator operator
-hi def link FutharkCase Keyword
