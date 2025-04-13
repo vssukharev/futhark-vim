@@ -6,13 +6,13 @@ syn match float "\v(([0-9]+\.[0-9]+|[0-9]+f(32|64))(f(32|64))?)"
 syn match float "\v([eE][\+\-]?[0-9]+)"
 
 syn keyword conditional if then else
-syn keyword Statement loop with entry for while do in local type val
+syn keyword Statement loop with entry for while do in local type val def
 syn keyword keyword concat zip unzip unsafe
 syn keyword FutharkBinding let entry nextgroup=FutIdentifier skipwhite skipempty
 syn keyword PreProc module open import nextgroup=FutIdentifier skipwhite skipempty
 syn keyword FutharkCase match case
 
-syn keyword function map map1 map2 map3 map4 map5 stream_map stream_map_per
+syn keyword function main map map1 map2 map3 map4 map5 stream_map stream_map_per
 syn keyword function reduce reduce_comm scan filter partition
 syn keyword function stream_red stream_red_per stream_seq iota
 syn keyword function replicate scatter drop
@@ -26,7 +26,7 @@ syn match FutIdentifier "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=N
 
 syn keyword type i8 i16 i32 i64 u8 u16 u32 u64 int real bool char f16 f32 f64
 
-syn keyword typedef type
+" syn keyword typedef type
 
 syn match constant /'.'/
 
