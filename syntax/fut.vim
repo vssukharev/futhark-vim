@@ -6,13 +6,19 @@ syn match float "\v(([0-9]+\.[0-9]+|[0-9]+f(32|64))(f(32|64))?)"
 syn match float "\v([eE][\+\-]?[0-9]+)"
 
 syn keyword conditional if then else
-syn keyword Statement loop with entry for while do in local type val def
-syn keyword keyword concat zip unzip unsafe
-syn keyword FutharkBinding let entry nextgroup=FutIdentifier skipwhite skipempty
-syn keyword PreProc module open import nextgroup=FutIdentifier skipwhite skipempty
+syn keyword Statement loop with entry for while do in local type val
+syn keyword keyword unsafe
+syn keyword FutIdDecl def let entry nextgroup=FutFunc skipwhite skipempty
+syn keyword PreProc module open import nextgroup=FutFunc skipwhite skipempty
 syn keyword FutharkCase match case
 
-syn keyword function main map map1 map2 map3 map4 map5 stream_map stream_map_per
+syn keyword FutTypeDecl type nextgroup=FutType skipwhite skipempty
+syn match FutTypeSpec ':' nextgroup=FutType skipwhite skipempty
+
+syn match function "map[0-9]*" 
+syn match function "zip[0-9]*" 
+syn match function "unzip[0-9]*" 
+syn keyword function main concat stream_map stream_map_per
 syn keyword function reduce reduce_comm scan filter partition
 syn keyword function stream_red stream_red_per stream_seq iota
 syn keyword function replicate scatter drop
@@ -22,15 +28,17 @@ syn keyword function id const
 
 syn keyword boolean true false
 
-syn match FutIdentifier "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
+syn match FutFunc "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
+syn match FutType "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
 
 syn keyword type i8 i16 i32 i64 u8 u16 u32 u64 int real bool char f16 f32 f64
 
 " syn keyword typedef type
 
+
 syn match constant /'.'/
 
-syn match FutharkAssigment "\v\="
+syn match FutAssignment "\v\="
 syn match FutharkOperator  "\(+\|-\|*\|/\|>\|<\|%\|!\|&\||\|\^\)"
 syn match FutharkOperator  "\(++\|==\|!=\|>->\|<-<\||>\|<|\)" containedin=FutharkLambdaOperator
 
@@ -44,9 +52,11 @@ syn region string start=/"/ skip=/\\"/ end=/"/ keepend excludenl
 
 syn match comment "--.*$"
 
-hi def link FutIdentifier Function
+hi def link FutFunc Function
+hi def link FutType Type
 
-hi def link FutharkBinding Statement
+hi def link FutIdDecl Statement
+hi def link FutTypeDecl Statement
 hi def link number constant
 hi def link FutharkOperator operator
 hi def link FutharkLambdaOperator operator
